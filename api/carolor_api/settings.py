@@ -25,7 +25,7 @@ SECRET_KEY = 'uvo^49n^95)+qp98+fx=-%y3&t@(afu6!ue30yx-&f)rxcw+xn'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['carolor-map.kediss.eu']
 
 
 # Application definition
