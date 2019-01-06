@@ -17,6 +17,6 @@ from django.contrib.gis import admin
 from django.urls import include, path
 
 urlpatterns = [
-    path('api/admin/', admin.site.urls),
-    path('api/partners/', include('partners.urls'))
+    path('admin/', admin.site.urls),
+    path('partners/', include('partners.urls'))
 ]
