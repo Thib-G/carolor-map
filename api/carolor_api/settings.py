@@ -12,8 +12,19 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# GDAL for Windows
+# https://stackoverflow.com/questions/49139044/geodjango-on-windows-could-not-find-the-gdal-library-oserror-winerror-12/49159195#49159195
+
+if os.name == 'nt':
+    os.environ['GDAL_DATA'] = BASE_DIR + r"\venv\Lib\site-packages\osgeo\data\gdal"
+    os.environ['PROJ_LIB'] = BASE_DIR + r"\venv\Lib\site-packages\osgeo\data\proj"
+    os.environ['PATH'] = BASE_DIR + r"\venv\Lib\site-packages\osgeo" + os.environ['PATH']
+    GDAL_LIBRARY_PATH = BASE_DIR + r"\venv\Lib\site-packages\osgeo\gdal300.dll"
 
 
 # Quick-start development settings - unsuitable for production
@@ -126,17 +137,3 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = '/srv/carolor-map/static/'
-
-# GDAL for Windows
-# https://stackoverflow.com/questions/49139044/geodjango-on-windows-could-not-find-the-gdal-library-oserror-winerror-12/49159195#49159195
-import os
-if os.name == 'nt':
-    import platform
-    OSGEO4W = r"C:\OSGeo4W"
-    if '64' in platform.architecture()[0]:
-        OSGEO4W += "64"
-    assert os.path.isdir(OSGEO4W), "Directory does not exist: " + OSGEO4W
-    os.environ['OSGEO4W_ROOT'] = OSGEO4W
-    os.environ['GDAL_DATA'] = OSGEO4W + r"\share\gdal"
-    os.environ['PROJ_LIB'] = OSGEO4W + r"\share\proj"
-    os.environ['PATH'] = OSGEO4W + r"\bin;" + os.environ['PATH']
